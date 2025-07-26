@@ -1,0 +1,18 @@
+{
+  "noInternetConnection": "No internet connection. Please check your network.",
+  "sessionExpired": "Session expired. Please log in again.",
+  "serverError": "Server error{0}. Please try again later.",
+  "badRequest": "Bad request",
+  "unauthorized": "Authorization required",
+  "forbidden": "Access denied",
+  "notFound": "Resource not found",
+  "clientError": "Request error ({0})",
+  "connectionTimeout": "Connection timeout. Please check your internet.",
+  "sendTimeout": "Send timeout. Please try again.",
+  "receiveTimeout": "Receive timeout. Server is not responding.",
+  "badCertificate": "Security certificate error",
+  "connectionError": "Connection error. Please check your internet.",
+  "requestCancelled": "Request was cancelled",
+  "unknownNetworkError": "Unknown network error",
+  "unknownError": "An unexpected error occurred"
+}

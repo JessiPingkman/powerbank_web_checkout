@@ -1,6 +1,6 @@
 name: powerbank_web_checkout
 description: "A new Flutter project."
-publish_to: 'none' 
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:
@@ -10,8 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.8
-   # ui
+    # ui
   cupertino_icons: ^1.0.8
   # localization
   easy_localization: ^3.0.8
@@ -45,7 +44,7 @@ dependencies:
   flutter_svg: ^2.2.0
 
 dev_dependencies:
-# route generator
+  # route generator
   auto_route_generator: ^10.1.0
 
   # code generator
@@ -61,8 +60,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-   assets:
+  assets:
     # localization
     - assets/resources/langs/
     #  assets
