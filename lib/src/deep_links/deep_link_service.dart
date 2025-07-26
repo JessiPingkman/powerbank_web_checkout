@@ -1,75 +1,52 @@
 import 'dart:async';
-
-import 'package:app_links/app_links.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web/web.dart' as web;
 
 part 'deep_link_event.dart';
 
 part 'deep_link_listener.dart';
 
 class DeepLinkService {
-  static const _productsPath = 'products';
-
-  static bool _isInitialUrlHandled = false;
-
+  static const _stationPath = 'station';
   final _eventHandler = StreamController<DeepLinkEvent>.broadcast();
-
-  late final AppLinks _appLinks;
 
   Stream<DeepLinkEvent> get stream => _eventHandler.stream;
 
-  StreamSubscription? _uriListener;
-
-  void dispose() {
-    _eventHandler.close();
-    _uriListener?.cancel();
-  }
-
-  Future<void> handleInitialUrl() async {
-    try {
-      if (_isInitialUrlHandled) {
-        return;
-      }
-      final initialUri = await _appLinks.getInitialLink();
-      _listenForChange();
-
-      if (initialUri == null) {
-        return;
-      }
-
-      _parseUri(initialUri);
-    } on PlatformException catch (_, __) {
-      // Platform messages may fail but we ignore the exception
-      /// TODO: PlatformException logic
-    } on FormatException catch (_, __) {
-      /// TODO: FormatException logic
-    } finally {
-      _isInitialUrlHandled = true;
+  void init() {
+    if (kIsWeb) {
+      _handleInitialWebUri();
+      _listenToWebUriChanges();
     }
   }
 
-  void _listenForChange() {
-    _uriListener = _appLinks.uriLinkStream.listen((Uri? uri) {
-      if (uri == null) {
-        return;
-      }
+  void dispose() {
+    _eventHandler.close();
+  }
 
+  void _handleInitialWebUri() {
+    final uri = Uri.base;
+    _parseUri(uri);
+  }
+
+  void _listenToWebUriChanges() {
+    web.window.onPopState.listen((event) {
+      final uri = Uri.base;
       _parseUri(uri);
     });
   }
 
+  // http://localhost:62817/#/station/RECH082203000350
   void _parseUri(Uri uri) {
-    if (uri.pathSegments.isEmpty) {
-      return;
-    }
+    final fragment = uri.fragment;
+    final fragmentUri = Uri.parse(fragment);
 
-    /// Product detail deeplink looks like [https://asia.kg/products/product-slug]
-    if (uri.pathSegments.first == _productsPath) {
-      final slug = uri.pathSegments.last;
+    final segments = fragmentUri.pathSegments;
 
-      _eventHandler.add(ProductsDeepLinkEvent(slug: slug));
+    if (segments.isNotEmpty && segments.first == _stationPath && segments.length >= 2) {
+      final stationId = segments[1];
+      _eventHandler.add(StationDeepLinkEvent(stationId: stationId));
     }
   }
 }

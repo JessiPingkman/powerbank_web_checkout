@@ -1,11 +1,11 @@
 part of 'deep_link_service.dart';
 
 abstract class DeepLinkEvent {
-  const factory DeepLinkEvent.products({required final String slug}) = ProductsDeepLinkEvent;
+  const factory DeepLinkEvent.products({required final String stationId}) = StationDeepLinkEvent;
 }
 
-class ProductsDeepLinkEvent implements DeepLinkEvent {
-  final String slug;
+class StationDeepLinkEvent implements DeepLinkEvent {
+  final String stationId;
 
-  const ProductsDeepLinkEvent({required this.slug});
+  const StationDeepLinkEvent({required this.stationId});
 }

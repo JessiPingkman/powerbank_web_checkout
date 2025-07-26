@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:powerbank_web_checkout/src/app.dart';
 import 'package:powerbank_web_checkout/src/core/constants/constants.dart';
 import 'package:powerbank_web_checkout/src/deep_links/deep_link_service.dart';
 import 'package:powerbank_web_checkout/src/di.dart';
+import 'dart:js' as js;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,7 +13,7 @@ void main() async {
   await DependencyInjection.init();
   await EasyLocalization.ensureInitialized();
 
-  final DeepLinkService deepLinkService = DeepLinkService();
+  final deepLinkService = DeepLinkService();
 
   runApp(
     EasyLocalization(

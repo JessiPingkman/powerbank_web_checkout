@@ -10,8 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-    # ui
+  # ui
   cupertino_icons: ^1.0.8
+  web: ^1.1.1
   # localization
   easy_localization: ^3.0.8
 

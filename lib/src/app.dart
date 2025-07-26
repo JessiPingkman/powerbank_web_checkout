@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider(
-      create: (_) => deepLinkService..handleInitialUrl(),
+      create: (_) => deepLinkService..init(),
       child: Builder(
         builder:
             (context) => MediaQuery(
